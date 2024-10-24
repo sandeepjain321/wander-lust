@@ -1,0 +1,85 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <h3><%=listing.title%></h3>
+  </div>
+
+  <div class="card listing-card col-6 offset-2 show-card">
+    <img
+      src="<%= listing.image %>"
+      class="card-img-top show-img"
+      alt="listing-image"
+    />
+    <div class="card-body">
+      <p class="card-text">
+        <%=listing.description%> <br />
+        &#8377; <%=listing.price%> /Night <br />
+        <%=listing.location%>
+        <br />
+        <%=listing.country%>
+      </p>
+    </div>
+  </div>
+  <br />
+  <br />
+  <div class="btns">
+    <a
+      href="/listings/<%= listing._id %>/edit"
+      class="btn btn-dark col-1 offset-2 edit-btn"
+      >Edit
+    </a>
+
+    <form method="DELETE" action="/listings/<%=listing._id %>">
+      <button class="btn btn-dark offset-4">delete</button>
+    </form>
+  </div>
+  <div class="col-6 offset-2">
+    <hr />
+    <h4>Leave review</h4>
+    <form
+      action="/listings/<%= listing._id %>/reviews"
+      method="post"
+      novalidate
+      class="needs-validation"
+    >
+      <label class="form-label" for="rating">Rating</label>
+      <input
+        class="form-range"
+        type="range"
+        min="1"
+        max="5"
+        id="rating"
+        name="review[rating]"
+      />
+      <div class="comment">
+        <label for="comment" class="form-label">Comment</label>
+        <textarea
+          name="review[comment]"
+          id="comment"
+          cols="30"
+          rows="5"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="invalid-feedback">please add some comment or review</div>
+        <br />
+      </div>
+      <button class="btn btn-outline-dark">Submit</button>
+    </form>
+  </div>
+  <br />
+  <hr />
+
+  <div class="row">
+    <p>All Review</p>
+    <% for( review of listing.reviews) {%>
+    <div class="card col-5 ms-3 mb-3">
+      <div class="card-body">
+        <h5 class="card-title">sandeep jain</h5>
+        <p class="card-text"><%= review.comment %></p>
+        <p class="card-text"><%= review.rating %> star</p>
+      </div>
+    </div>
+    <%}%>
+  </div>
+</div>
