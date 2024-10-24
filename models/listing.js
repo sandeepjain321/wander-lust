@@ -1,3 +1,4 @@
+const { string } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -6,9 +7,7 @@ const listingSchema = new Schema({
     type: String,
     required: true,
   },
-  description: {
-    description: String,
-  },
+  description: String,
   image: {
     type: String,
     default:
@@ -19,9 +18,7 @@ const listingSchema = new Schema({
         : v,
   },
   price: Number,
-  location: {
-    location: String,
-  },
+  location: String,
 
   country: String,
   reviews: [

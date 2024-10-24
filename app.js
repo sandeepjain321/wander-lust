@@ -8,7 +8,6 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
-const { console } = require("inspector");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
@@ -85,7 +84,6 @@ app.get(
 app.get(
   "/listings/:id/edit",
   wrapAsync(async (req, res) => {
-    console.log("inside edit");
     let { id } = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/edit.ejs", { listing });
@@ -100,9 +98,6 @@ app.post(
   wrapAsync(async (req, res, next) => {
     let result = listingSchema.validate(req.body);
     console.log(result);
-    console.log(req.body);
-    console.log("======================");
-    console.log(req.body.listing);
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     // req.flash("sucess", "New Listing Created !");
@@ -125,12 +120,12 @@ app.put(
 // delete route
 
 app.delete(
-  "/listings/:id ",
+  "/listings/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
     console.log(deletedListing);
-    res.redirect("listings");
+    res.redirect("/listings");
   })
 );
 
