@@ -33,7 +33,7 @@ router.post(
     await listing.save();
 
     console.log("review saved sucessfully");
-    res.send("review save ");
+    res.redirect(`/listings/${listing._id}`);
   })
 );
 
